@@ -1,0 +1,7 @@
+export { default as Home} from './Componenets/Home'
+export { default as Signup} from './Componenets/Signup'
+export { default as Login} from './Componenets/Login'
+export { default as Addtask} from './Componenets/Pages/Addtask'
+export { default as CompleteTask} from './Componenets/Pages/CompleteTask'
+export { default as Importanttask} from './Componenets/Pages/Importanttask'
+export { default as InCompleteTask} from './Componenets/Pages/InCompleteTask'
