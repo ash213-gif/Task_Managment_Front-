@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 export default function Sidebar() {
     const task = [
         { title: 'All task', icon: <FaTasks />, link: '/' },
-        { title: 'Complete', icon: <FaCheckCircle />, link: 'complete/' },
+        { title: 'Complete', icon: <FaCheckCircle />, link: '/complete' },
         { title: 'Incomplete', icon: <FaExclamationCircle />, link: '/incomplete' },
     ]
     return (
         <>
-            <div className='' >
+            <div className=' h-screen flex flex-col' >
                 {task.map((item, i) => (
                     <Link to={item.link}>
                         <div className='bg-blue-600 p-2 m-2  rounded-xl text-white flex items-center gap-2 hover:bg-blue-800 transition duration-300'

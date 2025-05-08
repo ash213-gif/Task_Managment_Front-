@@ -1,7 +1,10 @@
 import React from 'react'
+import Alltask from './Alltask'
 
 export default function Complete() {
   return (
-    <div>Complete</div>
+    <div>
+      <Alltask />
+    </div>
   )
 }

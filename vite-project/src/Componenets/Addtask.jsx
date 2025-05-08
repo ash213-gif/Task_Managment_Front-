@@ -1,75 +1,55 @@
 import React, { useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
-export default function Addtask() {
-    const [task, setTask] = useState([]);
+export default function Addtask({ setAdd, addTask }) {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
-    const input = [
-        {
-            id: 1,
-            type: 'text',
-            label: 'Title',
-            placeholder: 'Enter your title',
-            description: 'Enter a brief title for your project'
-        },
-        {
-            id: 2,
-            type: 'textarea',
-            label: 'Description',
-            placeholder: 'Enter your description',
-            description: 'Enter a detailed description of your project'
-        },
-        {
-            id: 3,
-            type: 'select',
-            label: 'Technology',
-            options: ['Frontend', 'Backend', 'Fullstack'],
-            description: 'Select the technology used in your project'
-        },
-        {
-            id: 4,
-            type: 'text',
-            label: 'Tags',
-            placeholder: 'Enter tags separated by commas',
-            description: 'Enter relevant tags for your project'
-        }];
+    const handleAddTask = () => {
+        addTask({ title, description });
+        setTitle('');
+        setDescription('');
+        setAdd(false);
+    };
 
-
-    const AddTask = () => {
-        // Placeholder function for now
-        console.log('Task Added');
+    const closediv = () => {
+        setAdd(false);
     };
 
     return (
         <>
-            {input.map((field) => (
-                <div key={field.id} className=" bg-white mb-4">
-                    <label className="block text-gray-700  text-sm font-bold mb-2">{field.label}</label>
-                    {field.type === 'textarea' ? (
-                        <textarea
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder={field.placeholder}
-                        />
-                    ) : field.type === 'select' ? (
-                        <select className="w-full p-2 border border-gray-300 rounded">
-                            {field.options.map((option) => (
-                                <option value={option}>{option}</option>
-                            ))}
-                        </select>
-                    ) : (
-                        <input
-                            type={field.type}
-                            className="w-full p-2 border border-gray-300 rounded"
-                            placeholder={field.placeholder}
-                        />
-                    )}
-                    <p className="text-gray-500 text-xs mt-1">{field.description}</p>
+            <div className="flex fixed h-screen w-full justify-center items-center">
+                <div className="bg-white h-auto w-3/6 mr-72 gap-3 flex flex-col items-center m-5 rounded-2xl p-6 relative">
+                    <FaTimes
+                        onClick={closediv}
+                        className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 cursor-pointer"
+                        size={20}
+                    />
+                    <h1 className="text-3xl font-mono">Enter Your Task</h1>
+                    <h2 className="font-mono">Title</h2>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-4/6 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter Title"
+                    />
+                    <h2 className="font-mono">Description</h2>
+                    <textarea
+                        type="text"
+                        rows={5}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="w-4/6 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter Description"
+                    />
+                    <button onClick={handleAddTask}>
+                        <span className="p-2 bg-green-500 rounded-lg text-white font-bold">
+                            Add task
+                        </span>
+                    </button>
                 </div>
-            ))}
-
-
-
-
-            <button onClick={AddTask}>Add Task</button>
+            </div>
         </>
     );
 }
