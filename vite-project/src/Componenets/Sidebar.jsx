@@ -1,8 +1,12 @@
 import React from 'react'
 import { FaTasks, FaCheckCircle, FaExclamationCircle, FaPlusCircle, FaSignOutAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
+
+   
+
     const task = [
         { title: 'All task', icon: <FaTasks />, link: '/' },
         { title: 'Complete', icon: <FaCheckCircle />, link: '/complete' },
@@ -21,7 +25,9 @@ export default function Sidebar() {
                     </Link>
                 ))}
                 <Link to='/logout' >
-                    <button className='bg-blue-600   m-1.5 p-2 w-[190px]  rounded-xl text-white flex items-center  hover:bg-blue-800  transition duration-300' >
+                    <button
+                        
+                        className='bg-blue-600   m-1.5 p-2 w-[190px]  rounded-xl text-white flex items-center  hover:bg-blue-800  transition duration-300' >
                         <FaSignOutAlt />
                         Logout</button>
                 </Link>

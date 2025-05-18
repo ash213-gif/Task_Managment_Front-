@@ -1,46 +1,19 @@
-import React, { useState } from 'react';
+import React, { Children, useContext, useState } from 'react';
 import Addtask from '../Addtask';
-
-
-
+import { TaskContext } from '../../Context/Taskcontext';
 import { FaPencilAlt, FaTrash, FaPlus } from 'react-icons/fa';
 
-export default function Alltask() {
+export default function Alltask({ children }) {
+
+  const dataContext = useContext(TaskContext)
+
   const [add, setAdd] = useState(false);
 
   const addTask = (task) => {
-    setTasks([...tasks, task]);
-  }; 
+    setAdd([...add, { ...add, status: 'Pending' }])
+  };
 
-const share=()=>{
-  if(tasks.status === ' Complete '){
-
-  }
-}
-
-  const [tasks, setTasks] = useState([
-    {
-      title: 'Backend',
-      description: 'This is my first backend project where I learned to design RESTful APIs, interact with databases, and implement security mechanisms.',
-      status:'Incomplete'
-    },
-    {
-      title: 'Frontend',
-      description: 'This is my first frontend project where I gained hands-on experience with HTML, CSS, and JavaScript. I used React to build a dynamic user interface.',
-      status:'Complete'
-    },
-    {
-      title: 'And many more',
-      description: 'I have worked on numerous projects that involve integrating backend and frontend technologies, designing scalable architectures, and optimizing performance.',
-      status:'Incomplete'
-    },
-    {
-      title: 'And many more',
-      description: 'I have worked on numerous projects that involve integrating backend and frontend technologies, designing scalable architectures, and optimizing performance.',
-      status:'Complete'
-    },
-  ]);
-
+ 
   const TaskModeOn = () => {
     setAdd(true);
   };
@@ -51,10 +24,10 @@ const share=()=>{
     setTasks(newTasks);
   };
 
- 
+
   return (
     <div className="grid grid-cols-3 h-full  gap-5">
-      {tasks.map((task, index) => (
+      {dataContext.tasks.map((task, index) => (
         <div
           className="flex flex-col bg-blue-100 h-64 overflow-y-auto  rounded-2xl shadow-md p-2 m-3 hover:bg-blue-100 transition duration-300 ease-in-out"
           key={index}
@@ -72,8 +45,9 @@ const share=()=>{
                 className="text-red-600 cursor-pointer hover:text-red-800"
                 size={20}
               />
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold p-1 rounded transition duration-300 ease-in-out">
-                Complete
+              <button className=" text-white font-bold p-1 rounded transition duration-300 ease-in-out">
+                <span className={`p-3 text-xs font-semibold rounded ${task.status === 'Complete' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}`}>{task.status}</span>
+
               </button>
             </div>
           </div>
