@@ -12,6 +12,8 @@ export default function Complete() {
 
 
   return (
+    <>
+<h4 class="text-2xl justify-center flex p-4  font-bold  text-white ">Complete Task</h4>
     <div className=' grid grid-cols-3 gap-8 m-6  '>
       {filterComplete.map((items, i) => (
         <div className="max-w-md mx-auto  p-4 bg-blue-200 rounded-2xl shadow-md">
@@ -22,5 +24,6 @@ export default function Complete() {
       ))}
 
     </div>
+     </>
   )
 }

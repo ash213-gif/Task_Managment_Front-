@@ -5,8 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 export default function App() {
   return (
     <div className='relative ' >
+
+     {/* <Signup/> */}
       <BrowserRouter>
+       
         <Routes>
+          
           <Route exact  element={<Home />} >
             <Route index  element={<Alltask />} />
             <Route path='/complete'  element={<Complete />} />

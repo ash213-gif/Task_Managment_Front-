@@ -23,6 +23,11 @@ function SignUp() {
     // API call ya database mein data save karne ka logic yahan daalein
     console.log('Sign up details:', formData);
     setError(null);
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
 
   return (
