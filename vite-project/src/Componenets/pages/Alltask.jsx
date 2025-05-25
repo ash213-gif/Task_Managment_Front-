@@ -23,7 +23,7 @@ export default function Alltask() {
   };
 
   return (
-    <div className="grid grid-cols-3 h-full gap-5">
+    <div className="grid grid-cols-4 h-full gap-5">
       {tasks.map((task, index) => (
         <div
           className="flex flex-col bg-blue-100 h-64 overflow-y-auto rounded-2xl shadow-md p-2 m-3 hover:bg-blue-100 transition duration-300 ease-in-out"
