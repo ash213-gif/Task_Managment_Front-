@@ -1,25 +1,41 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function OtpVerify() {
   const [otp, setOtp] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  const navigate= useNavigate();
+  const params = useParams();
+  const userid = params.Userid;
+
   const handleChange = (e) => {
     setOtp(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // API call ya OTP verification logic yahan daalein
-    if (otp === '123456') { // replace with actual OTP verification logic
-      setSuccess('OTP verified successfully!');
-      setError(null);
-    } else {
-      setError('Invalid OTP');
+    try {
+      const response = await axios.post(`http://localhost:3030/VerifyOtp/${userid}`, { Otp: otp });
+      console.log(response);
+      if (response.status === 200) {
+        setSuccess('OTP verified successfully!');
+        setError(null);
+      } else {
+        setError('Invalid OTP. Please try again.');
+        setSuccess(null);
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      setError('An error occurred while verifying the OTP.');
       setSuccess(null);
     }
+
+    navigate('/')
   };
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg">
@@ -28,6 +44,7 @@ function OtpVerify() {
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Enter OTP:</label>
           <input
+            name='Otp'
             type="number"
             value={otp}
             onChange={handleChange}

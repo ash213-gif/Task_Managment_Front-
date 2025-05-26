@@ -1,48 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate  ,useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    FullName: '',
+    Email: '',
+    Passord: '',
   });
+
+  
+
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
 
   const formFields = [
-    { label: 'Username', type: 'text', name: 'username' },
-    { label: 'Email', type: 'email', name: 'email' },
-    { label: 'Password', type: 'password', name: 'password' },
+    { label: 'FullName', type: 'text', name: 'FullName' },
+    { label: 'Email', type: 'email', name: 'Email' },
+    { label: 'Passord', type: 'password', name: 'Passord' },
   ];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // API call ya database mein data save karne ka logic yahan daalein
-    console.log('Sign up details:', formData);
-    setError(null);
-    setFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
+    try {
+      const response = await axios.post('http://localhost:3030/registration', formData);
+      
+      
+      setFormData({
+        FullName: '',
+        Email: '',
+        Passord: '',
+      })
+
+     navigate(`/otpverify/${response.data.data.Userid}`); 
+      
+      
+    } catch (error) {
+      console.error('Error saving data:', error);
+      setError('Failed to save data. Please try again.');
+    }
   };
 
   return (
     <div className="max-w-sm mx-auto mt-10 p-8 bg-blue-100 rounded-3xl shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        {formFields.map((field) => (
-          <div key={field.name} className="mb-4">
+        {formFields.map((field, i) => (
+          <div key={i} className="mb-4">
             <label className="block text-gray-700 mb-2">{field.label}:</label>
             <input
               type={field.type}
               name={field.name}
               value={formData[field.name]}
               onChange={handleChange}
-              required
               className="block w-full p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -55,6 +69,9 @@ function SignUp() {
           Sign Up
         </button>
       </form>
+      {error && (
+        <p className="text-green-500 mt-4">{error}</p>
+      )}
       <p className="text-center mt-4">
         Already have an account?{' '}
         <a
