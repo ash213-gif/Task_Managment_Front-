@@ -11,6 +11,8 @@ export default function Sidebar() {
         { title: 'All task', icon: <FaTasks />, link: '/' },
         { title: 'Complete', icon: <FaCheckCircle />, link: '/complete' },
         { title: 'Incomplete', icon: <FaExclamationCircle />, link: '/incomplete' },
+        { title: 'Profile', icon: <FaExclamationCircle />, link: '/profile' },
+        
     ]
     return (
         <>

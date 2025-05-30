@@ -7,7 +7,8 @@ function OtpVerify() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
+
   const params = useParams();
   const userid = params.Userid;
 
@@ -19,23 +20,24 @@ function OtpVerify() {
     e.preventDefault();
     try {
       const response = await axios.post(`http://localhost:3030/VerifyOtp/${userid}`, { Otp: otp });
-      console.log(response);
+
       if (response.status === 200) {
-        setSuccess('OTP verified successfully!');
+        setSuccess(response.data.msg);
         setError(null);
-      } else {
-        setError('Invalid OTP. Please try again.');
-        setSuccess(null);
+        await navigate(`/`)
+
       }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-      setError('An error occurred while verifying the OTP.');
+    } catch (e) {
+      if (e.response && e.response.data && e.response.data.msg) {
+        setError(e.response.data.msg);
+      } else {
+        setError(e.msg);
+      }
       setSuccess(null);
     }
+    setOtp('');
 
-    navigate('/')
   };
-
 
   return (
     <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg">
@@ -45,7 +47,7 @@ function OtpVerify() {
           <label className="block text-gray-700 mb-2">Enter OTP:</label>
           <input
             name='Otp'
-            type="number"
+            type="text"
             value={otp}
             onChange={handleChange}
             required

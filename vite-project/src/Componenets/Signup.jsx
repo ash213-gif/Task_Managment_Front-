@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate  ,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function SignUp() {
@@ -9,7 +9,7 @@ function SignUp() {
     Passord: '',
   });
 
-  
+
 
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -28,17 +28,18 @@ function SignUp() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3030/registration', formData);
-      
-      
+       await console.log(response);
+
       setFormData({
         FullName: '',
         Email: '',
         Passord: '',
       })
 
-     navigate(`/otpverify/${response.data.data.Userid}`); 
-      
-      
+      sessionStorage.setItem('Userid', response.data.data.Userid)
+      navigate(`/otpverify/${response.data.data.Userid}`);
+
+
     } catch (error) {
       console.error('Error saving data:', error);
       setError('Failed to save data. Please try again.');
