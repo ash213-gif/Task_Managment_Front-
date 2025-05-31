@@ -8,10 +8,10 @@ export default function Sidebar() {
    
 
     const task = [
-        { title: 'All task', icon: <FaTasks />, link: '/' },
-        { title: 'Complete', icon: <FaCheckCircle />, link: '/complete' },
-        { title: 'Incomplete', icon: <FaExclamationCircle />, link: '/incomplete' },
-        { title: 'Profile', icon: <FaExclamationCircle />, link: '/profile' },
+        { title: 'All task', icon: <FaTasks />, link: '/user' },
+        { title: 'Complete', icon: <FaCheckCircle />, link: '/user/complete' },
+        { title: 'Incomplete', icon: <FaExclamationCircle />, link: '/user/incomplete' },
+        { title: 'Profile', icon: <FaExclamationCircle />, link: '/user/profile' },
         
     ]
     return (
@@ -26,7 +26,7 @@ export default function Sidebar() {
                         </div>
                     </Link>
                 ))}
-                <Link to='/logout' >
+                <Link to='/user/logout' >
                     <button
                         
                         className='bg-blue-600   m-1.5 p-2 w-[190px]  rounded-xl text-white flex items-center  hover:bg-blue-800  transition duration-300' >

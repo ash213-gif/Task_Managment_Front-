@@ -24,7 +24,7 @@ function OtpVerify() {
       if (response.status === 200) {
         setSuccess(response.data.msg);
         setError(null);
-        await navigate(`/`)
+        await navigate(`/user`)
 
       }
     } catch (e) {

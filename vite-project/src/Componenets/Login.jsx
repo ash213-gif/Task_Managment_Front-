@@ -1,26 +1,49 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    Email: '',
+    Passord: '', // Corrected the typo here
   });
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null); // Corrected the function name
+  const navigate = useNavigate();
 
   const formFields = [
-    { label: 'Email', type: 'email', name: 'email' },
-    { label: 'Password', type: 'password', name: 'password' },
+    { label: 'Email', type: 'email', name: 'Email' },
+    { label: 'Password', type: 'password', name: 'Passord' }, // Corrected the typo here
   ];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // API call ya database mein data check karne ka logic yahan daalein
-    console.log('Login details:', formData);
-    setError(null);
+    try {
+      const response = await axios.post('http://localhost:3030/login', formData);
+
+      if (response.data.status === true) {
+        setSuccess(response.data.msg);
+        sessionStorage.setItem('Userid', response.data.UserId);
+        setFormData({
+          Email: '',
+          Password: '',
+        });
+       await   navigate('/user');
+      }
+    } catch (e) {
+      console.log(e.response); // Log the error response
+      if (e.response && e.response.data && e.response.data.msg) {
+        setError(e.response.data.msg);
+      } else {
+        setError(e.message );
+      }
+      setSuccess(null);
+    }
   };
 
   return (
@@ -40,6 +63,7 @@ function Login() {
             />
           </div>
         ))}
+        {success && <p className="text-green-500 mb-4">{success}</p>}
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <button
           type="submit"

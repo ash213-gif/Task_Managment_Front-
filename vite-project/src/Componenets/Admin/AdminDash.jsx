@@ -17,16 +17,11 @@ export default function AdminDash() {
 
     const handleSubmit = async  (e) => {
         e.preventDefault();
-
         try {
-            const response = await axios.post("http://localhost:3030/api/createtask", task)
+            const response = await axios.post("http://localhost:3030/admin/createtask", task)
             console.log(response);
         }
         catch (e) { return { status: false, msg: e.message } }
-
-
-
-
     };
 
     return (
