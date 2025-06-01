@@ -4,6 +4,8 @@ import AdminProfile from './AdminProfile';
 
 export default function AdminDash() {
     const [task, setTask] = useState({});
+    const [error, seteror] = useState(null)
+    const [success, setsuccess] = useState(null)
 
     const form = [
         { placeholder: "Enter task title", name: "title", type: "text" },
@@ -15,13 +17,17 @@ export default function AdminDash() {
 
     };
 
-    const handleSubmit = async  (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:3030/admin/createtask", task)
             console.log(response);
         }
-        catch (e) { return { status: false, msg: e.message } }
+        catch (e) {
+            if (e.response.data) {
+
+            }
+        }
     };
 
     return (

@@ -40,9 +40,8 @@ function SignUp() {
       navigate(`/otpverify/${response.data.data.Userid}`);
 
 
-    } catch (error) {
-      console.error('Error saving data:', error);
-      setError('Failed to save data. Please try again.');
+    } catch (e) { 
+      setError(e.response.data.message);
     }
   };
 

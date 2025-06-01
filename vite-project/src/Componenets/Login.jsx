@@ -25,22 +25,28 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3030/login', formData);
-
+      console.log(response);
+      
       if (response.data.status === true) {
-        setSuccess(response.data.msg);
+        setSuccess(response.data.message);
         sessionStorage.setItem('Userid', response.data.UserId);
         setFormData({
           Email: '',
           Password: '',
         });
-       await   navigate('/user');
+        if (response.data.role === 'user') {
+          navigate('/user')
+        } else {
+          navigate('/admin')
+        }
+
       }
     } catch (e) {
       console.log(e.response); // Log the error response
-      if (e.response && e.response.data && e.response.data.msg) {
-        setError(e.response.data.msg);
+      if ( e.response.data.msg ) {
+        setError(e.response.data.msg );
       } else {
-        setError(e.message );
+        setError(e.message  );
       }
       setSuccess(null);
     }

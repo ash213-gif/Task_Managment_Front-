@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Profile() {
 
     const userId = sessionStorage.getItem('Userid');
+   
 
     const [userdata, setuserdata] = useState({});
     const [newdiv, setnewdiv] = useState(false)
@@ -18,7 +19,8 @@ export default function Profile() {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3030/getUser/${userId}`);
-                setuserdata(response.data);
+                  console.log(response);
+                setuserdata(response.data.Data);
 
             } catch (e) {
                 setError(e.message);
@@ -26,7 +28,7 @@ export default function Profile() {
             }
         };
         fetchUserData();
-    }, []);
+    }, [userId]);
 
 
     const handleadmit = async () => {
@@ -37,6 +39,7 @@ export default function Profile() {
     const handleadmin = async () => {
         try {
             const response = await axios.put(`http://localhost:3030/Userupdate/${userId}`);
+          
 
             if (response.data.status === true) {
                 setuserdata(prev => ({ ...prev, role: 'admin' }));
