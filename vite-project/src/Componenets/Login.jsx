@@ -24,12 +24,15 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3030/login', formData);
+      const response = await axios.post('http://localhost:3030/login', formData,);
       console.log(response);
-      
+
       if (response.data.status === true) {
         setSuccess(response.data.message);
-        sessionStorage.setItem('Userid', response.data.UserId);
+
+        await sessionStorage.setItem('Userid', response.data.UserId);
+        await sessionStorage.setItem('JsnToken', response.data.token)
+        
         setFormData({
           Email: '',
           Password: '',
@@ -43,10 +46,10 @@ function Login() {
       }
     } catch (e) {
       console.log(e.response); // Log the error response
-      if ( e.response.data.msg ) {
-        setError(e.response.data.msg );
+      if (e.response.data.msg) {
+        setError(e.response.data.msg);
       } else {
-        setError(e.message  );
+        setError(e.message);
       }
       setSuccess(null);
     }

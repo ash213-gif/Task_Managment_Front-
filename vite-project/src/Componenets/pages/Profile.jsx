@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Profile() {
 
     const userId = sessionStorage.getItem('Userid');
-   
+
 
     const [userdata, setuserdata] = useState({});
     const [newdiv, setnewdiv] = useState(false)
@@ -19,8 +19,11 @@ export default function Profile() {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3030/getUser/${userId}`);
-                  console.log(response);
                 setuserdata(response.data.Data);
+                if (response.data.Data.role === 'admin') {
+                    setuserdata({})
+                }
+
 
             } catch (e) {
                 setError(e.message);
@@ -35,11 +38,10 @@ export default function Profile() {
         setnewdiv(true)
 
     }
-    
+
     const handleadmin = async () => {
         try {
             const response = await axios.put(`http://localhost:3030/Userupdate/${userId}`);
-          
 
             if (response.data.status === true) {
                 setuserdata(prev => ({ ...prev, role: 'admin' }));
@@ -90,7 +92,7 @@ export default function Profile() {
                 <div className="h-screen absolute w-full  opacity-100  flex   items-center justify-center bg-gray-800">
                     <div className="bg-white  p-6 rounded-lg shadow-lg text-center">
                         <h2 className="text-xl font-semibold mb-4">Are you sure you want to become an admin?</h2>
-                        {success ? success :   error}
+                        {success ? success : error}
 
                         <button
                             onClick={handleadmin}

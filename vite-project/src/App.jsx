@@ -1,7 +1,7 @@
 import React from 'react';
 import { Home, Alltask, Complete, Incomplete, Login, Signup, Otpvery, Logout, Profile } from './Allcomponenets';
 import AdminDash from './Componenets/Admin/AdminDash';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route ,  Navigate} from 'react-router-dom';
 
 export default function App() {
   return (
@@ -20,14 +20,17 @@ export default function App() {
         </Route>
 
 
-
+        <Route path="/" element={<Navigate to="/signup" />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/otpverify/:Userid" element={<Otpvery />} />
         <Route path="/login" element={<Login />} />
+
+
+        {/*   Admin  Dashboard */}
         <Route path="/admin" element={<AdminDash />} />
 
 
-        
+
 
 
 

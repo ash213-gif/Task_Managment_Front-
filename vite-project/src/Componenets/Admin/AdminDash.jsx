@@ -17,15 +17,23 @@ export default function AdminDash() {
 
     };
 
+    const token = sessionStorage.getItem('JsnToken');
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3030/admin/createtask", task)
+            const response = await axios.post("http://localhost:3030/admin/createtask", task
+            )
             console.log(response);
+            setsuccess(response.data.msg)
+            setTask(Object.keys(task).reduce((acc, key) => ({ ...acc, [key]: '' }), {}));
         }
         catch (e) {
             if (e.response.data) {
-
+                seteror(e.response.msg)
+            } else {
+                seteror(e.response.message)
             }
         }
     };
@@ -51,6 +59,8 @@ export default function AdminDash() {
 
                             </div>
                         ))}
+                        {error} {success}
+
                         <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-150 ease-in-out flex items-center justify-center" type="submit">
 
                             Create Task
