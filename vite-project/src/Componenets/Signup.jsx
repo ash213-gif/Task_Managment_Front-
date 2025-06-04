@@ -28,7 +28,7 @@ function SignUp() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3030/registration', formData);
-       await console.log(response);
+      await console.log(response);
 
       setFormData({
         FullName: '',
@@ -40,7 +40,7 @@ function SignUp() {
       navigate(`/otpverify/${response.data.data.Userid}`);
 
 
-    } catch (e) { 
+    } catch (e) {
       setError(e.response.data.message);
     }
   };
@@ -62,6 +62,9 @@ function SignUp() {
           </div>
         ))}
         {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && (
+          <p className="text-green-500 mt-4">{error}</p>
+        )}
         <button
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
@@ -69,9 +72,7 @@ function SignUp() {
           Sign Up
         </button>
       </form>
-      {error && (
-        <p className="text-green-500 mt-4">{error}</p>
-      )}
+
       <p className="text-center mt-4">
         Already have an account?{' '}
         <a

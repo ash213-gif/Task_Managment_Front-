@@ -1,7 +1,7 @@
 import React from 'react';
 import { Home, Alltask, Complete, Incomplete, Login, Signup, Otpvery, Logout, Profile } from './Allcomponenets';
 import AdminDash from './Componenets/Admin/AdminDash';
-import { BrowserRouter, Routes, Route ,  Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 export default function App() {
   return (
@@ -9,7 +9,7 @@ export default function App() {
       <Routes>
 
 
-        {/* // userDashboard Dashboard */}
+        {/*  userDashboard Dashboard */}
 
         <Route exact path="/user" element={<Home />}>
           <Route index element={<Alltask />} />
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/user/logout" element={<Logout />} />
         </Route>
 
-
+        {/* Puclic Route  */}
         <Route path="/" element={<Navigate to="/signup" />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/otpverify/:Userid" element={<Otpvery />} />
@@ -28,11 +28,6 @@ export default function App() {
 
         {/*   Admin  Dashboard */}
         <Route path="/admin" element={<AdminDash />} />
-
-
-
-
-
 
       </Routes>
     </BrowserRouter>
