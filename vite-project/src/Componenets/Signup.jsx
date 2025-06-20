@@ -33,7 +33,7 @@ function SignUp() {
       // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signup`, formData);
 
       const apiUrl = import.meta.env.VITE_API_URL;
-axios.post(`${apiUrl}/signup`, data);
+      const response = await axios.post(`${apiUrl}/signup`, formData);
       await console.log(response);
 
       setFormData({
