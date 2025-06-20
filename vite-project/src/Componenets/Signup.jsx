@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {renderUrl} from '../../Globalurl'
 import axios from 'axios';
 
 function SignUp() {
@@ -27,7 +28,9 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3030/registration', formData);
+      // const response = await axios.post('http://localhost:3030/registration', formData);
+
+      const response = await axios.post(`${renderUrl}/registration`, formData, )
       await console.log(response);
 
       setFormData({
@@ -48,7 +51,7 @@ function SignUp() {
   return (
     <div className="max-w-sm mx-auto mt-10 p-8 bg-blue-100 rounded-3xl shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+      <form  className='' onSubmit={handleSubmit}>
         {formFields.map((field, i) => (
           <div key={i} className="mb-4">
             <label className="block text-gray-700 mb-2">{field.label}:</label>
@@ -61,10 +64,7 @@ function SignUp() {
             />
           </div>
         ))}
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {error && (
-          <p className="text-green-500 mt-4">{error}</p>
-        )}
+       
         <button
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
@@ -82,6 +82,10 @@ function SignUp() {
           Please login
         </a>
       </p>
+       
+        {error && (
+          <p  className="text-red-500 ">{error}</p>
+        )}
     </div>
   );
 }
