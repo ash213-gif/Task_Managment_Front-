@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -27,7 +29,8 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3030/registration', formData);
+      // const response = await axios.post('http://localhost:3030/registration', formData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signup`, formData);
       await console.log(response);
 
       setFormData({
