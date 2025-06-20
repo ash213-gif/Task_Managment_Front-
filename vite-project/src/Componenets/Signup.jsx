@@ -30,7 +30,10 @@ function SignUp() {
     e.preventDefault();
     try {
       // const response = await axios.post('http://localhost:3030/registration', formData);
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signup`, formData);
+      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signup`, formData);
+
+      const apiUrl = import.meta.env.VITE_API_URL;
+axios.post(`${apiUrl}/signup`, data);
       await console.log(response);
 
       setFormData({
